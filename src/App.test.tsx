@@ -1,9 +1,10 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
+test("call fetch and render the message", async () => {
+  const fetchSpy = jest.spyOn(window, "fetch");
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(await screen.findByText("Message received")).toBeInTheDocument();
+  expect(fetchSpy).toHaveBeenCalledWith("/api/message");
 });
